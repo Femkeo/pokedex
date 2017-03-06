@@ -110,7 +110,6 @@ class Pokemon{
             Alamofire.request(_pokemonUrl).responseJSON { response in
                 
                     if let dict = response.result.value as? Dictionary<String, AnyObject>{
-                        print(dict["weight"]!)
                         if let weight = dict["weight"] as? String{
                             self._weight = weight
                         }
@@ -126,11 +125,6 @@ class Pokemon{
                         if let defense = dict["defense"] as? Int{
                             self._defense = "\(defense)"
                         }
-                        
-                        print(self._weight)
-                        print(self._defense)
-                        print(self._attack)
-                        print(self._defense)
                         
                         //this means where types.count is bigger than 0. where can be left out
                         if let types = dict["types"] as? [Dictionary<String, String>], types.count > 0 {
@@ -149,17 +143,14 @@ class Pokemon{
                             self._type = ""
                         }
                         
-                        print(self._type)
                         if let descriptionArray = dict["descriptions"] as? [Dictionary<String, String>], descriptionArray.count > 0 {
-                            print("contact1")
                             if let url = descriptionArray[0]["resource_uri"] {
                                 let nsurl = "\(URL_BASE)\(url)"
                                 Alamofire.request(nsurl).responseJSON { response in
-                                    print("contact2")
                                     if let descriptionDictionairy = response.result.value as? Dictionary<String, AnyObject>{
                                         if let description = descriptionDictionairy["description"] as? String{
                                             self._description = description
-                                            print(self._description)
+                                            completed()
                                         }
                                     }
                                 }
@@ -181,9 +172,6 @@ class Pokemon{
                                     if let lvl = evolutions[0]["level"] as? Int{
                                         self._nextEvolutionLvL = "\(lvl)"
                                     }
-                                    print(self._nextEvolutionId)
-                                    print(self._nextEvolutionTxt)
-                                    print(self._nextEvolutionLvL)
                                 }
                             }
                         }

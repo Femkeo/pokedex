@@ -37,7 +37,6 @@ class PokemonDetailVC: UIViewController {
         pokemon.downloadPokemonDetails { () -> () in
             //this will be called after download is done
           self.updateUI()
-        print("its working?")
         }
 
 
